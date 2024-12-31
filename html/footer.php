@@ -93,7 +93,7 @@
             <div class="!mt-8">
                 <h6 class="text-[13px] text-gray-400 font-medium">Get exclusive assets sent straight to your inbox</h6>
                 <div class="mt-4">
-                    <a href="javascript:void(0)" class="bg-blue-600 hover:bg-blue-700 text-sm text-white font-medium py-3 px-6 tracking-wide rounded">Sign up</a>
+                    <a href="inscription.php" class="bg-blue-600 hover:bg-blue-700 text-sm text-white font-medium py-3 px-6 tracking-wide rounded">Sign up</a>
                 </div>
             </div>
         </div>
