@@ -7,7 +7,7 @@
     <title>GameVault</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="./../js/script.js"></script>
-    <link rel="stylesheet" href="./../CSS/style.css">
+    <link rel="stylesheet" href="./../css/styles.css">
 </head>
 
 <body class="bg-white text-black transition-all duration-500 ease-in-out">
