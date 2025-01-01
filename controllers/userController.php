@@ -1,8 +1,9 @@
 <?php
 require_once("./../models/User.php");
-require_once("./../models/b.php");
+require_once("./../models/Db.php");
 
-class userController{
+class userController
+{
     private $action;
     private $pdo;
 
@@ -11,24 +12,69 @@ class userController{
         $this->pdo = Db::getInstance();
     }
 
-    public function request_handler(){
-        $this->action = $_POST['action'];
+    public function request_handler()
+    {
+        $this->action = $_GET['action'];
 
-        switch($this->action){
+        switch ($this->action) {
             case "register":
                 $this->register();
+                break;
+
+            case "on":
+                $this->accRender();
+                break;
+
+            case "accEdit":
+                $this->accEdit();
+                break;
+
+            case "accModify":
+                $this->accModify();
                 break;
         }
     }
 
-    private function register(){
+    private function register()
+    {
         $user = new User($this->pdo);
+    }
+
+    private function accRender()
+    {
+        $user = new User($this->pdo);
+        $user->accRender();
+    }
+
+    private function accEdit()
+    {
+        try {
+            $user = new User($this->pdo);
+            $user->accEdit();
+        } catch (Exception $e) {
+            $errorMessage = $e->getMessage();
+            header("Location: ./../html/profile.php?error=" . urlencode($errorMessage));
+            exit();
+        }
+    }
+
+    private function accModify()
+    {
+        try {
+            $user = new User($this->pdo);
+            // if ($user->validation()){
+
+            // }
+            $user->accModify();
+        } catch (Exception $e) {
+            $errorMessage = $e->getMessage();
+            header("Location: ./../html/profile_edit.php?error=" . urlencode($errorMessage));
+            exit();
+        }
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['action'])) {
-        $userController = new userController();
-        $userController->request_handler();
-    }
+if (isset($_GET['action'])) {
+    $userController = new userController();
+    $userController->request_handler();
 }
