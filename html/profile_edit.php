@@ -19,33 +19,30 @@ include_once("./../html/header.php");
         <div class="bg-white rounded-lg shadow-xl w-full max-w-3xl p-6">
             <h2 class="text-3xl font-semibold text-gray-800 text-center mb-6">Edit Profile</h2>
 
-            <form action="/save-profile" method="POST" enctype="multipart/form-data">
+            <form action="./../controllers/userController.php?action=accModify" method="POST" enctype="multipart/form-data">
                 <div class="flex justify-center mb-6">
                     <label for="profile_image" class="cursor-pointer">
-                        <img src="https://via.placeholder.com/150" alt="Profile Picture" id="profileImage" class="w-32 h-32 rounded-full border-4 border-indigo-500 mb-4">
+                        <img src="<?= $profile_img_src; ?>" alt="Profile Picture" id="profileImage" class="w-32 h-32 rounded-full border-4 border-indigo-500 mb-4">
                         <span class="text-indigo-600 hover:text-indigo-800 text-sm">Change Profile Picture</span>
                     </label>
                     <input type="file" id="profile_image" name="profile_image" class="hidden" onchange="previewImage(event)">
+                    <input type="hidden" name="old_profile_image" value="<?php echo htmlspecialchars($profile_img_src); ?>">
+                    <input type="hidden" name="user_id" value="<?php echo 3; ?>">
                 </div>
 
                 <div class="mb-4">
                     <label for="full_name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                    <input type="text" id="full_name" name="full_name" value="John Doe" required class="mt-1 p-3 block w-full border-2 border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                    <input type="text" id="full_name" name="full_name" value="<?php echo $full_name; ?>" required class="mt-1 p-3 block w-full border-2 border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
 
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" name="email" value="johndoe@example.com" required class="mt-1 p-3 block w-full border-2 border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
-                </div>
-
-                <div class="mb-4">
-                    <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
-                    <input type="text" id="phone" name="phone" value="+123 456 7890" required class="mt-1 p-3 block w-full border-2 border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                    <input type="email" id="email" name="email" value="<?php echo $email; ?>" required class="mt-1 p-3 block w-full border-2 border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
 
                 <div class="mb-6">
                     <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
-                    <textarea id="bio" name="bio" rows="4" required class="mt-1 p-3 block w-full border-2 border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">Passionate web developer with a love for clean code and user-centered design. Always eager to learn new technologies and build impactful projects.</textarea>
+                    <textarea id="bio" name="bio" rows="4" required class="mt-1 p-3 block w-full border-2 border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"><?php echo $bio; ?></textarea>
                 </div>
 
                 <div class="flex justify-center">
