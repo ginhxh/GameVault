@@ -75,31 +75,26 @@ class User
 
     public function accModify()
     {
+        $full_name = $_POST['full_name'];
+        $email = $_POST['email'];
+        $bio = $_POST['bio'];
+        $user_id = $_POST['user_id'];
+
         if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
             $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
             if (!in_array($_FILES['profile_image']['type'], $allowedTypes)) {
                 throw new Exception("Invalid file type. Only JPEG, PNG, and GIF are allowed.");
             }
             $profile_image = file_get_contents($_FILES['profile_image']['tmp_name']);
+            $update = $this->pdo->prepare("UPDATE users SET full_name = :full_name, email = :email, profile_img = :profile_img, bio = :bio WHERE user_id = :user_id");
+            $update->bindParam(":profile_img", $profile_image, PDO::PARAM_LOB);
         } else {
-            $old_image = htmlspecialchars_decode($_POST['old_profile_image']);
-            $profile_img_base64_decode = base64_decode($old_image);
-            if ($profile_img_base64_decode === false) {
-                throw new Exception("Error decoding old image data.");
-            }
-            $profile_image = $profile_img_base64_decode;
+            $update = $this->pdo->prepare("UPDATE users SET full_name = :full_name, email = :email, bio = :bio WHERE user_id = :user_id");
         }
 
-        $full_name = $_POST['full_name'];
-        $email = $_POST['email'];
-        $bio = $_POST['bio'];
-        $user_id = $_POST['user_id'];
-
-        $update = $this->pdo->prepare("UPDATE users SET full_name = :full_name, email = :email, profile_img = :profile_img, bio = :bio WHERE user_id = :user_id");
         $update->bindParam(":full_name", $full_name);
         $update->bindParam(":email", $email);
         $update->bindParam(":bio", $bio);
-        $update->bindParam(":profile_img", $profile_image, PDO::PARAM_LOB);
         $update->bindParam(":user_id", $user_id, PDO::PARAM_INT);
         $update->execute();
 
