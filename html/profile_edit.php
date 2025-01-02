@@ -26,7 +26,6 @@ include_once("./../html/header.php");
                         <span class="text-indigo-600 hover:text-indigo-800 text-sm">Change Profile Picture</span>
                     </label>
                     <input type="file" id="profile_image" name="profile_image" class="hidden" onchange="previewImage(event)">
-                    <input type="hidden" name="old_profile_image" value="<?php echo htmlspecialchars($profile_img_src); ?>">
                     <input type="hidden" name="user_id" value="<?php echo 3; ?>">
                 </div>
 
